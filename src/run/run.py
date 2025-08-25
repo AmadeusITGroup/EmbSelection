@@ -10,40 +10,28 @@ from dotenv import load_dotenv, find_dotenv
 import os
 import sys
 
-parser = argparse.ArgumentParser()
-parser.add_argument(
-    "-envfile", 
-    type=str, 
-    default=".env",     
-    help="Path to the environment variables file (default: .env)"
-)
-args = parser.parse_args()
-
-if not os.path.exists(args.envfile):
-    print(f" Environment file '{args.envfile}' not found.")
-    sys.exit(1)
-
-print(f" Loading environment from {args.envfile}")
-_ = load_dotenv(args.envfile)
-
-
-# Environment variables
-openai_api_key = os.getenv("API_KEY")
-openai_api_version = os.getenv("AZURE_OPENAI_API_VERSION")
-azure_openai_endpoint = os.getenv("AZURE_ENDPOINT")
-embedding_deployment_name = os.getenv("EMBEDDING_DEPLOYMENT_NAME")
-
-gpt_4_model_deployment_name = 'gpt-4o'
-
-gpt4o_client = AzureOpenAI(
-    api_version=openai_api_version,
-    azure_endpoint=azure_openai_endpoint,
-    api_key=openai_api_key,
-)
-
-
-
 def main():
+
+
+    envfilepath = str(input("\nEnter the path to your env file ")) or ".env"
+
+
+    _ = load_dotenv(envfilepath)
+
+
+    # Environment variables
+    openai_api_key = os.getenv("API_KEY")
+    openai_api_version = os.getenv("AZURE_OPENAI_API_VERSION")
+    azure_openai_endpoint = os.getenv("AZURE_ENDPOINT")
+    embedding_deployment_name = os.getenv("EMBEDDING_DEPLOYMENT_NAME")
+
+    gpt_4_model_deployment_name = 'gpt-4o'
+
+    gpt4o_client = AzureOpenAI(
+        api_version=openai_api_version,
+        azure_endpoint=azure_openai_endpoint,
+        api_key=openai_api_key,
+    )
     def gpt40_oneshot(prompt_sys, prompt_usr, temperature=0):
         prompt_sys = prompt_sys.replace("\n", " ")
         prompt_usr = prompt_usr.replace("\n", " ")
@@ -284,8 +272,9 @@ def main():
         for i in range(len(miss_model)):
             perfs_dict[miss_model[i]] = None
     result['performance'] = result['names'].map(perfs_dict)
+    pathresult = str(input("\n Enter output path "))
     result[['names', 'performance', 'n_parameters', 'memory_usage_mb', 'max_tokens', 'embed_dim',
-            'license', 'open_weights','languages','reference','release_date' ]].sort_values(by=['performance','n_parameters' ], ascending = [False, True]).to_csv('BenchmarkResults' +'.csv')
+            'license', 'open_weights','languages','reference','release_date' ]].sort_values(by=['performance','n_parameters' ], ascending = [False, True]).to_csv(pathresult +'BenchmarkResults' +'.csv')
 
 
 if __name__ == "__main__":

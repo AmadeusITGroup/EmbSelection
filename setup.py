@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
     
 setup(
     name='EmbedSelection',
-    version='0.2',
+    version='1.1',
     author='Ilias, Hongliu',
     author_email='ilias.driouich@amadeus.com;hongliu.cao@amadeus.com',
     description='Embedding selection: A tool for selecting the best embedding model for your use case',
