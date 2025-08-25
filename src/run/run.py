@@ -8,13 +8,13 @@ import mteb
 import json
 from dotenv import load_dotenv, find_dotenv
 import os
-
+import sys
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
     "-envfile", 
     type=str, 
-    default=".env", 
+    default=".env",     
     help="Path to the environment variables file (default: .env)"
 )
 args = parser.parse_args()

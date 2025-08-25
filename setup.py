@@ -23,7 +23,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'privatetestsetgeneration=run.run:main',
+            'embedSelect=run.run:main',
     ],
     },
     python_requires='>=3.6',
