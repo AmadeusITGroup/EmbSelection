@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
     
 setup(
     name='EmbedSelection',
-    version='2.0',
+    version='2.1',
     author='Ilias, Hongliu',
     author_email='ilias.driouich@amadeus.com;hongliu.cao@amadeus.com',
     description='Embedding selection: A tool for selecting the best embedding model for your use case',
@@ -23,7 +23,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'embedSelect=run.run:main',
+            'EmbedSelection=run.run:main',
     ],
     },
     python_requires='>=3.6',
