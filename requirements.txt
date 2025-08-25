@@ -1,0 +1,6 @@
+openai==1.70.0
+langchain-openai
+scikit-learn==1.5.1
+python-dotenv==1.0.0
+transformers==4.51.3 
+mteb==1.38.2

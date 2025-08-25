@@ -1,140 +1,73 @@
-Copyright (C) YEAR Amadeus s.a.s.
-See the end of the file for license conditions.
+# Embedding Selector Framework
 
-# python-project-starter
 
-This is a template repo to act as a reference when starting up a new project in python. It consolidates best practices in regards to minimal level of documentation as well as the CI aspects.
+This framework helps you automatically select the most suitable text embedding model for a given downstream use case.
+It analyzes task requirements (e.g., retrieval, classification, summarization), matches them against available embedding models, and evaluates performance on relevant benchmarks.
+---
 
-Local installation can be done using [`uv`](https://github.com/astral-sh/uv):
+##  Features
 
-```bash
-$ uv venv -p python3.11
-$ uv pip install -e .
-$ source .venv/bin/activate
-$ python
->>> from package import square
->>> square(3)
-9
+
+- **Use Case–Driven Selection:** Takes a natural-language description of a use case and extracts structured metadata (e.g., languages, token limits, complexity).
+- **Metadata Extraction:** Uses advanced LLM models to normalize requirements into a standardized schema (parameters, memory, licensing, etc.).
+- **Model Matching:** Filters embedding models based on attributes like size, efficiency, license, and language coverage.
+- **Task Alignment:** Selects relevant evaluation tasks from MTEB (Massive Text Embedding Benchmark).
+- **Performance Evaluation:** Loads benchmark results and computes average scores per candidate model.
+---
+
+##  How It Works
+
+The pipeline runs in sequential steps:
+
+- **Use Case Selection**
+Choose from predefined scenarios (chatbots, legal retrieval, recommendations, sentiment analysis, summarization, etc.) or provide your own description.
+- **Requirement Extraction (LLM Agent)**
+GPT-4o parses the description into structured metadata, including:
+Supported languages
+Max token length
+Memory usage & parameter limits
+Task/domain classification
+- **Model Filtering**
+Candidate models from MTEB are filtered according to the extracted attributes.
+- **Task Evaluation**
+Candidate models are benchmarked on the most relevant MTEB tasks (retrieval, classification, summarization, etc.).
+- **Ranking & Export**
+Models are ranked by performance (with ties broken by efficiency) and exported to CSV for inspection.
+## Usage 
+
+
+To use the tool, follow these steps:
+
+ ```bash
+   pip install EmbedSelection
+
+   EmbedSelection 
+
+
+
 ```
 
-After installation a command-line tool is also available:
+  
+   
+## Contributing
 
-```bash
-$ square 4
-Square of 4 is 16
-```
-
-Running the tests can be done using [`tox`](https://tox.wiki/):
-
-```bash
-$ tox -p
-```
-
-Building the packages can also be done using `tox`:
-
-```bash
-$ tox -e packages
-$ ls dist/
-```
-
-Packaging uses [`setuptools-scm`](https://github.com/pypa/setuptools-scm), so the version of the software is based on git tags.
-
-To run the linting, we recommend `ruff`, a standard configuration is in the repo in `pyproject.toml`.
-
-# Pre-commit Hooks
-
-This project uses [`pre-commit`](https://pre-commit.com/) to ensure code quality and consistency before committing changes. Pre-commit hooks automatically run checks such as linting and formatting on staged files.
-
-## Setting up Pre-commit Hooks
-
-To set up pre-commit hooks for this repository, follow these steps:
-
-1. Install `pre-commit` if you haven't already:
-
-```bash
-   pip install pre-commit
-```
-
-2. Install the pre-commit hooks defined in the `.pre-commit-config.yaml` file:
-
-```bash
-pre-commit install
-```
-
-3. You can manually run the pre-commit hooks on all files in the repository using:
-
-```bash
-pre-commit run --all-files
-```
-
-## How it Works
-Once installed, the pre-commit hooks will automatically run on staged files whenever you attempt to make a commit. If any of the hooks fail, the commit will be blocked until the issues are resolved.
-
-## Updating Hooks
-To update the pre-commit hooks to their latest versions, run:
-```bash
-pre-commit autoupdate
-```
-## Available Hooks
-
-Some examples of the pre-commit:
-
-- **black**: Automatically formats Python code to conform to the Black code style.
-- **isort**: Sorts imports in Python files according to PEP 8 guidelines.
-- **flake8**: Checks Python code for style guide enforcement.
-- **mypy**: Performs static type checking on Python code.
-- **ruff**: A fast Python linter and code quality tool.
-- **bandit**: A security linter for Python code.
-- **check-yaml**: Validates YAML files for syntax errors.
-- **check-added-large-files**: Prevents large files from being added to the repository.
-- **check-merge-conflict**: Checks for merge conflict markers in files.
-- **end-of-file-fixer**: Ensures that files end with a newline character.
-- **trailing-whitespace**: Removes trailing whitespace from lines in files.
-- **detect-private-key**: Detects private keys in files to prevent accidental exposure.
-- **check-json**: Validates JSON files for syntax errors.
-- **check-ast**: Checks Python files for syntax errors and other issues.
-- **check-toml**: Validates TOML files for syntax errors.
-- **check-merge-conflict**: Checks for merge conflict markers in files.
-- **check-symlinks**: Checks for broken symbolic links in the repository.
-- **check-xml**: Validates XML files for syntax errors.
-- **check-docs**: Checks for documentation issues in Python files.
-- **check-urls**: Checks for broken URLs in files.
-- **check-binary-files**: Checks for binary files in the repository.
-- **check-merge-conflict**: Checks for merge conflict markers in files.
-
-.. and many more!
-
-## Disabling Hooks Temporarily
-If you need to skip the pre-commit hooks for a specific commit, you can use the --no-verify flag:
-
-## Configuration
-The hooks are configured in the .pre-commit-config.yaml file located in the root of the repository. You can customize the hooks as needed by editing this file. For more information, refer to the pre-commit documentation.
+Contributions to improve the tool are welcome! Feel free to open issues for bugs or feature requests, or submit pull requests for enhancements.
 
 
 
-# Releasing
-To release a new version of the package, you can create a pre-release from the main branch using GitHub UI, which will then trigger the release workflow. Alternatively, you can use the `gh` command line tool to create a release:
+## Acknowledgements
 
-```bash
-gh release create v[a.b.c] --prerelease --title "Kick starting the release"  --target main
-```
+This project utilizes various libraries, including LangChain for document processing and Presidio for PII detection and anonymization.
 
-# Contributing
-We welcome contributions to this project! If you have an idea for a new feature, bug fix, or improvement, please open an issue or submit a pull request. Before contributing, please read our [contributing guidelines](./CONTRIBUTING.md).
 
-# License
 
-This file is part of PROJECT.
+Clone the repository:
+Install dependencies:
+pip install -r requirements.txt
+Create a .env file with the following variables:
+AZURE_OPENAI_KEY=<your_azure_openai_api_key>
+AZURE_OPENAI_API_VERSION=2024-12-01-preview
+AZURE_ENDPOINT=https://<your_azure_resource>.openai.azure.com/
+EMBEDDING_DEPLOYMENT_NAME=text-embedding-ada-002
+GPT_4_MODEL_DEPLOYMENT_NAME=gpt-4
 
-PROJECT is free software: you can redistribute it and/or
-modify it under the terms of the Apache 2.0 License as published by
-the Apache Software Foundation.
-
-PROJECT is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the License
-for more details.
-
-You should have received a copy of the Apache 2.0 License
-along with PROJECT.
-If not, see <https://www.apache.org/licenses/LICENSE-2.0>.
