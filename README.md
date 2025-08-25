@@ -41,7 +41,7 @@ To use the tool, follow these steps:
  ```bash
    pip install EmbedSelection
 
-   EmbedSelection 
+   embedSelect 
 
 
 
