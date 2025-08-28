@@ -1,8 +1,9 @@
-# Embedding Selector Framework
+## Embedding Selector Framework
 
 
-This framework helps you automatically select the most suitable text embedding model for a given downstream use case.
-It analyzes task requirements (e.g., retrieval, classification, summarization), matches them against available embedding models, and evaluates performance on relevant benchmarks.
+### This framework helps you automatically select the most suitable text embedding model for a given downstream use case.
+
+### It analyzes task requirements (e.g., retrieval, classification, summarization), matches them against available embedding models, and evaluates performance on relevant benchmarks.
 ---
 
 ##  Features
@@ -41,7 +42,7 @@ To use the tool, follow these steps:
  ```bash
    pip install EmbedSelection
 
-   embedSelect 
+   EmbedSelection 
 
 
 
@@ -57,17 +58,6 @@ Contributions to improve the tool are welcome! Feel free to open issues for bugs
 
 ## Acknowledgements
 
-This project utilizes various libraries, including LangChain for document processing and Presidio for PII detection and anonymization.
+This project utilizes MTEB benchmark from huggingface : https://huggingface.co/spaces/mteb/leaderboard
 
-
-
-Clone the repository:
-Install dependencies:
-pip install -r requirements.txt
-Create a .env file with the following variables:
-AZURE_OPENAI_KEY=<your_azure_openai_api_key>
-AZURE_OPENAI_API_VERSION=2024-12-01-preview
-AZURE_ENDPOINT=https://<your_azure_resource>.openai.azure.com/
-EMBEDDING_DEPLOYMENT_NAME=text-embedding-ada-002
-GPT_4_MODEL_DEPLOYMENT_NAME=gpt-4
 
