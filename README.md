@@ -1,9 +1,9 @@
 ## Embedding Selector Framework
 
 
-### This framework helps you automatically select the most suitable text embedding model for a given downstream use case.
+#### - This framework helps you automatically select the most suitable text embedding model for a given downstream use case.
 
-### It analyzes task requirements (e.g., retrieval, classification, summarization), matches them against available embedding models, and evaluates performance on relevant benchmarks.
+#### - It analyzes task requirements (e.g., retrieval, classification, summarization), matches them against available embedding models, and evaluates performance on relevant benchmarks.
 ---
 
 ##  Features
